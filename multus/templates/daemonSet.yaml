@@ -74,10 +74,10 @@ spec:
       volumes:
         - name: cni
           hostPath:
-            path: /etc/cni/net.d
+            path: {{ default "/etc/cni/net.d" .Values.config.host.cni_conf_dir }}
         - name: cnibin
           hostPath:
-            path: /opt/cni/bin
+            path: {{ default "/opt/cni/bin" .Values.config.host.cni_bin_dir }}
         {{- if .Values.manifests.configMap }}
         - name: multus-cfg
           configMap:

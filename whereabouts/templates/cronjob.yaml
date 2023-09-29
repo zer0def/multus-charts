@@ -1,4 +1,4 @@
-apiVersion: batch/v1beta1
+apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: {{ include "whereabouts.fullname" . }}
@@ -41,7 +41,7 @@ spec:
           volumes:
             - name: cni-net-dir
               hostPath:
-                path: /etc/cni/net.d
+                path: {{ default "/etc/cni/net.d" .Values.host.cni_conf_dir }}
           restartPolicy: OnFailure
           {{- with .Values.nodeSelector }}
           nodeSelector:
